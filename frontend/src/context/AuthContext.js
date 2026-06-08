@@ -48,29 +48,39 @@ export const AuthProvider = ({ children }) => {
     }
   }, [fetchAndCacheProfile]);
 
-  const login = async (regimentalNumber, password) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const { data } = await api.post("/auth/login", { regimentalNumber, password });
+const login = async (regimentalNumber, password) => {
+  setLoading(true);
+  setError(null);
 
-      localStorage.setItem("ncc_token", data.token);
-      localStorage.setItem("ncc_user", JSON.stringify(data.user));
-      setUser(data.user);
+  try {
+    const { data } = await api.post("/auth/login", {
+      regimentalNumber,
+      password,
+    });
 
-      // Set auth header immediately so profile fetch works
-      api.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
-      await fetchAndCacheProfile(data.user.role);
+    localStorage.setItem("ncc_token", data.token);
+    localStorage.setItem("ncc_user", JSON.stringify(data.user));
 
-      return data.user;
-    } catch (err) {
-      const msg = err.response?.data?.message || "Login failed";
-      setError(msg);
-      throw new Error(msg);
-    } finally {
-      setLoading(false);
-    }
-  };
+    setUser(data.user);
+
+    // Set auth header first
+    api.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${data.token}`;
+
+    await fetchAndCacheProfile(data.user.role);
+
+    return data.user;
+  } catch (err) {
+    const msg =
+      err.response?.data?.message || "Login failed";
+
+    setError(msg);
+    throw new Error(msg);
+  } finally {
+    setLoading(false);
+  }
+};
 
   const logout = () => {
     localStorage.removeItem("ncc_token");

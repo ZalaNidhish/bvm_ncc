@@ -4,6 +4,7 @@ import Sidebar from "../components/Sidebar";
 import { useAuth } from "../context/AuthContext";
 import api from "../utils/api";
 import { SkeletonCard, SkeletonTable } from "../components/Loader";
+import NotificationPrompt from "../components/NotificationPrompt";
 
 const StatCard = ({ value, label, color }) => (
   <div className={`stat-card ${color || ""}`}>
@@ -50,6 +51,7 @@ const CadetDashboard = () => {
     <div className="page-layout">
       <Sidebar />
       <div className="main-content">
+        <NotificationPrompt />
         <div className="page-header dashboard-header">
           <div className="dashboard-welcome">
             <span className="welcome-label">Welcome back,</span>
