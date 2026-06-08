@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Notice = require("../models/Notice");
 const { protect, adminOnly } = require("../middleware/auth");
+const sendNotification = require("../utils/push");
+
 
 // @route   GET /api/notices
 // @desc    Get all active (non-expired) notices
@@ -50,6 +52,11 @@ router.post("/", protect, adminOnly, async (req, res) => {
       title, content, priority, expiryDate,
       createdBy: req.user._id,
     });
+
+    await sendNotification(
+      "New Notice",
+      notice.title
+    );
 
     res.status(201).json(notice);
   } catch (error) {

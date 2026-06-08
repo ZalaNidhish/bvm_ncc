@@ -17,6 +17,7 @@ const eventRoutes = require("./routes/event");
 const noticeRoutes = require("./routes/notice");
 const Notice = require("./models/Notice");
 const attendanceRoutes = require("./routes/attendance");
+const pushRoutes = require("./routes/push");
 
 // Mount routes
 app.use("/api/auth", authRoutes);
@@ -25,6 +26,8 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/notices", noticeRoutes);
 app.use("/api/attendance", attendanceRoutes);
+app.use("/api/push", pushRoutes);
+
 
 // Health check
 app.get("/", (req, res) => res.send("NCC Portal API running"));

@@ -3,6 +3,7 @@ const router = express.Router();
 const Attendance = require("../models/Attendance");
 const Event = require("../models/Event");
 const { protect, adminOnly } = require("../middleware/auth");
+const sendNotification = require("../utils/push");
 
 // Helper: strip time from a date for clean day-level comparison
 function toDateOnly(d) {
@@ -157,6 +158,12 @@ router.post("/mark", protect, adminOnly, async (req, res) => {
 
     await Attendance.bulkWrite(operations);
     res.json({ message: `Attendance marked for ${attendance.length} cadet(s) on ${date}` });
+
+    await sendNotification(
+      "Attendance Updated",
+      `${attendance.length} cadets attendance marked`
+    );
+
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
