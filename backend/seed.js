@@ -22,6 +22,20 @@ const User = require("./models/User");
 const CadetProfile = require("./models/CadetProfile");
 require("dotenv").config();
 
+
+// AUTO GENDER DETECTION
+  function getGenderFromRegNo(regimentalNumber) {
+    if (!regimentalNumber) return "";
+
+    const regNo = regimentalNumber.toUpperCase();
+
+    if (regNo.includes("SD")) return "Male";
+    if (regNo.includes("SW")) return "Female";
+
+    return "";
+  }
+
+
 // ─── Excel Reader ─────────────────────────────────────────────────────────────
 
 function readCadetsFromExcel() {
@@ -78,57 +92,65 @@ const seed = async () => {
     await mongoose.connect(process.env.MONGO_URI);
     console.log("✅  Connected to MongoDB\n");
 
-    // ── 1. Admin account ──────────────────────────────────────────────────────
-    const ADMIN_REG = "GJADMIN2025001";
-    let adminUser = await User.findOne({ regimentalNumber: ADMIN_REG });
+// ── Admin Configuration Array ─────────────────────────────────────────────
+const adminConfigs = [
+  {
+    regimentalNumber: "ADMINSD@GHANSHYAM",
+    name: "Administrator",
+    rank: "ANO",
+  },
+  {
+    regimentalNumber: "ADMINSW@URVASHI",
+    name: "Administrator",
+    rank: "CTO",
+  }
+];
 
-    if (adminUser) {
-      console.log(`⏩  Admin user already exists: ${ADMIN_REG}`);
-    } else {
-      adminUser = await User.create({
-        regimentalNumber: ADMIN_REG,
-        password: ADMIN_REG,
-        role: "admin",
-        isDefaultPassword: true,
-      });
-      console.log(`✅  Admin user created: ${ADMIN_REG}`);
-    }
+// ── Process Admins sequentially ───────────────────────────────────────────
+for (const config of adminConfigs) {
+  const { regimentalNumber, name, rank } = config;
 
-    function getGenderFromRegNo(regimentalNumber) {
-      if (!regimentalNumber) return "";
+  // 1. Handle User Account
+  let adminUser = await User.findOne({ regimentalNumber });
 
-      const regNo = regimentalNumber.toUpperCase();
+  if (adminUser) {
+    console.log(`⏩  Admin user already exists: ${regimentalNumber}`);
+  } else {
+    adminUser = await User.create({
+      regimentalNumber,
+      password: regimentalNumber, // Note: Consider hashing this password if not handled by a pre-save hook
+      role: "admin",
+      isDefaultPassword: true,
+    });
+    console.log(`✅  Admin user created: ${regimentalNumber}`);
+  }
 
-      if (regNo.includes("SD")) return "Male";
-      if (regNo.includes("SW")) return "Female";
+  // 2. Handle Cadet Profile (Linked to the correct admin user)
+  const profileExists = await CadetProfile.findOne({ user: adminUser._id });
 
-      return "";
-    }
+  if (profileExists) {
+    console.log(`⏩  Admin profile already exists for: ${regimentalNumber}`);
+  } else {
+    await CadetProfile.create({
+      user: adminUser._id,
+      regimentalNumber,
+      name,
+      rank,
+      wing: "Army",
+      battalion: "NCC Battalion",
+      phone: "",
+      gender: getGenderFromRegNo(regimentalNumber), // Fixed: passed string directly instead of string.regimentalNumber
+      joiningYear: null,
+      address: "",
+      attendancePct: 0,
+      totalParades: 0,
+      paradesPresent: 0,
+    });
+    console.log(`✅  Admin profile created for: ${regimentalNumber}`);
+  }
+}
 
-    // FIX: Also create CadetProfile for admin
-    const adminProfileExists = await CadetProfile.findOne({ user: adminUser._id });
-    if (adminProfileExists) {
-      console.log(`⏩  Admin profile already exists`);
-    } else {
-      await CadetProfile.create({
-        user:            adminUser._id,
-        regimentalNumber: ADMIN_REG,
-        name:            "Administrator",
-        rank:            "ANO",
-        wing:            "Army",
-        battalion:       "NCC Battalion",
-        phone:           "",
-        gender: getGenderFromRegNo(ADMIN_REG.regimentalNumber),
-        joiningYear:     null,
-        address:         "",
-        attendancePct:   0,
-        totalParades:    0,
-        paradesPresent:  0,
-      });
-      console.log(`✅  Admin profile created`);
-    }
-
-    // ── 2. Cadets from Excel ──────────────────────────────────────────────────
+    // ── 3. Cadets from Excel ──────────────────────────────────────────────────
     console.log("\n📄  Reading Excel file...");
     const cadets = readCadetsFromExcel();
     console.log(`📊  Found ${cadets.length} cadet(s) in Excel\n`);
