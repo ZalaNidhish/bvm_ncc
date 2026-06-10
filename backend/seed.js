@@ -94,7 +94,18 @@ const seed = async () => {
       console.log(`✅  Admin user created: ${ADMIN_REG}`);
     }
 
-    // FIX: Also create CadetProfile for admin — was missing which caused admin profile 404
+    function getGenderFromRegNo(regimentalNumber) {
+      if (!regimentalNumber) return "";
+
+      const regNo = regimentalNumber.toUpperCase();
+
+      if (regNo.includes("SD")) return "Male";
+      if (regNo.includes("SW")) return "Female";
+
+      return "";
+    }
+
+    // FIX: Also create CadetProfile for admin
     const adminProfileExists = await CadetProfile.findOne({ user: adminUser._id });
     if (adminProfileExists) {
       console.log(`⏩  Admin profile already exists`);
@@ -107,7 +118,7 @@ const seed = async () => {
         wing:            "Army",
         battalion:       "NCC Battalion",
         phone:           "",
-        gender:          "",
+        gender: getGenderFromRegNo(ADMIN_REG.regimentalNumber),
         joiningYear:     null,
         address:         "",
         attendancePct:   0,
@@ -159,7 +170,7 @@ const seed = async () => {
             battalion:       cadet.battalion,
             phone:           cadet.phone,
             dateOfBirth:     cadet.dateOfBirth,
-            gender:          cadet.gender,
+            gender: getGenderFromRegNo(cadet.regimentalNumber),
             joiningYear:     cadet.joiningYear,
             address:         cadet.address,
             attendancePct:   cadet.attendancePct,
