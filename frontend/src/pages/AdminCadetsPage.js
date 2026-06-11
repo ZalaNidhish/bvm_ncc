@@ -3,15 +3,25 @@ import Sidebar from "../components/Sidebar";
 import api from "../utils/api";
 import { SkeletonCard, SkeletonTable } from "../components/Loader";
 
-const currentYear = new Date().getFullYear();
+const today = new Date();
+const currentYear = today.getFullYear();
+const currentMonth = today.getMonth(); // 0 = Jan, 5 = June
 
 const getYear = (joiningYear) => {
   if (!joiningYear) return "—";
-  const diff = currentYear - parseInt(joiningYear);
-  if (diff <= 0) return "1st";
-  if (diff === 1) return "2nd";
-  if (diff === 2) return "3rd";
-  return `${diff + 1}th`;
+
+  const parsedYear = parseInt(joiningYear, 10);
+  if (isNaN(parsedYear)) return "—";
+
+  const effectiveCurrentYear = currentMonth >= 5 ? currentYear + 1 : currentYear;
+
+  const diff = effectiveCurrentYear - parsedYear;
+
+  if (diff <= 1) return "1st"; 
+  if (diff === 2) return "2nd";
+  if (diff === 3) return "3rd";
+  
+  return `${diff}th`;
 };
 
 const PctBadge = ({ pct }) => {

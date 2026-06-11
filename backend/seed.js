@@ -35,6 +35,30 @@ require("dotenv").config();
     return "";
   }
 
+  // AUTO JOINING YEAR DETECTION FROM REGIMENTAL NUMBER
+function getYearFromRegNo(regimentalNumber) {
+  if (!regimentalNumber) return null;
+  
+  const regNo = regimentalNumber.toUpperCase().trim();
+
+  // This single regex pattern captures the first 2 OR 4 digits right after the state initials 
+  // Examples: "GJ2025..." matches "2025" | "GJ23..." matches "23" | "MH24..." matches "24"
+  const match = regNo.match(/^[A-Z]{2}(\d{2,4})/);
+  
+  if (match) {
+    const extractedDigits = match[1];
+    
+    // If it extracted a 2-digit year (like "23" or "24"), convert it to a 4-digit year (2023, 2024)
+    if (extractedDigits.length === 2) {
+      return 2000 + parseInt(extractedDigits, 10);
+    }
+    
+    // If it's already a 4-digit year (like "2025"), just return it as an integer
+    return parseInt(extractedDigits, 10);
+  }
+  
+  return null;
+}
 
 // ─── Excel Reader ─────────────────────────────────────────────────────────────
 
@@ -69,12 +93,12 @@ function readCadetsFromExcel() {
       regimentalNumber: regNum,
       name:          (row["Name"]          || "").toString().trim(),
       rank:          (row["Rank"]          || "").toString().trim(),
-      wing:          (row["Wing"]          || "").toString().trim(),
-      battalion:     (row["Battalion"]     || "").toString().trim(),
+      wing:          (row["Wing"]          || "Army").toString().trim(),
+      battalion:     (row["Battalion"]     || "38 GUJ BN").toString().trim(),
       phone:         (row["Phone"]         || "").toString().trim(),
       dateOfBirth,
-      gender:        (row["Gender"]        || "").toString().trim(),
-      joiningYear:   row["Joining Year"]   ? parseInt(row["Joining Year"])   : null,
+      gender:        getGenderFromRegNo(regNum),
+      joiningYear:   getYearFromRegNo(regNum),
       address:       (row["Address"]       || "").toString().trim(),
       attendancePct: row["Attendance %"]   ? parseFloat(row["Attendance %"]) : 0,
       totalParades:  row["Total Parades"]  ? parseInt(row["Total Parades"])  : 0,
@@ -98,17 +122,22 @@ const adminConfigs = [
     regimentalNumber: "ADMINSD@GHANSHYAM",
     name: "Administrator",
     rank: "ANO",
+    wing: "Army",
+    battalion: "38 GUJ BN",
+
   },
   {
     regimentalNumber: "ADMINSW@URVASHI",
     name: "Administrator",
     rank: "CTO",
+    wing: "Army",
+    battalion: "38 GUJ BN",
   }
 ];
 
 // ── Process Admins sequentially ───────────────────────────────────────────
 for (const config of adminConfigs) {
-  const { regimentalNumber, name, rank } = config;
+  const { regimentalNumber, name, rank, wing, battalion } = config;
 
   // 1. Handle User Account
   let adminUser = await User.findOne({ regimentalNumber });
@@ -118,7 +147,7 @@ for (const config of adminConfigs) {
   } else {
     adminUser = await User.create({
       regimentalNumber,
-      password: regimentalNumber, // Note: Consider hashing this password if not handled by a pre-save hook
+      password: regimentalNumber, 
       role: "admin",
       isDefaultPassword: true,
     });
@@ -136,8 +165,8 @@ for (const config of adminConfigs) {
       regimentalNumber,
       name,
       rank,
-      wing: "Army",
-      battalion: "NCC Battalion",
+      wing,
+      battalion,
       phone: "",
       gender: getGenderFromRegNo(regimentalNumber), // Fixed: passed string directly instead of string.regimentalNumber
       joiningYear: null,
@@ -192,7 +221,7 @@ for (const config of adminConfigs) {
             battalion:       cadet.battalion,
             phone:           cadet.phone,
             dateOfBirth:     cadet.dateOfBirth,
-            gender: getGenderFromRegNo(cadet.regimentalNumber),
+            gender:          cadet.gender,
             joiningYear:     cadet.joiningYear,
             address:         cadet.address,
             attendancePct:   cadet.attendancePct,
