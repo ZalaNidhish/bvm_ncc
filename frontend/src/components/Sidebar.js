@@ -15,6 +15,7 @@ const Icons = {
   logout:     <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>,
   menu:       <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/></svg>,
   close:      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/></svg>,
+  aboutNcc:   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12A9 9 0 1112 3a9 9 0 019 9z"/></svg>,
 };
 
 
@@ -41,11 +42,13 @@ const Sidebar = () => {
     : (profile?.rank || "Cadet");
 
   const commonLinks = [
-    { to: "/dashboard",  label: "Dashboard",  icon: Icons.dashboard },
+    { to: "/dashboard",  label: "Dashboard",   icon: Icons.dashboard },
     { to: "/profile",    label: "My Profile",  icon: Icons.profile },
     { to: "/notices",    label: "Notices",     icon: Icons.notices },
     { to: "/events",     label: "Events",      icon: Icons.events },
     { to: "/attendance", label: "Attendance",  icon: Icons.attendance },
+    { to: "/about-ncc",  label: "About NCC",   icon: Icons.aboutNcc },
+    
   ];
 
   const adminLinks = [

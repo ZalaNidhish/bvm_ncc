@@ -15,6 +15,7 @@ const MarkAttendancePage  = lazy(() => import("./pages/MarkAttendancePage"));
 const ChangePasswordPage  = lazy(() => import("./pages/ChangePasswordPage"));
 const AdminCadetsPage     = lazy(() => import("./pages/AdminCadetsPage"));
 const DeveloperPage       = lazy(() => import("./pages/DeveloperPage"));
+const AboutNCC            = lazy(()=>import("./pages/AboutNCC"))
 
 import "./styles.css";
 
@@ -47,6 +48,7 @@ const AppRoutes = () => {
             {user?.role === "admin" ? <AdminAttendancePage /> : <AttendancePage />}
           </ProtectedRoute>
         } />
+        <Route path="/about-ncc" element={<AboutNCC />} />
         <Route path="/change-password" element={<ProtectedRoute><ChangePasswordPage /></ProtectedRoute>} />
         <Route path="/developer"       element={<ProtectedRoute><DeveloperPage /></ProtectedRoute>} />
 
