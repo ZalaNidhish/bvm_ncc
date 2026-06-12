@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import Sidebar from "../components/Sidebar";
 
 /* Load Tabler Icons font */
 function useTablerIcons() {
@@ -184,350 +185,308 @@ export default function AboutNCC() {
   const S = styles;
 
   return (
-    <div style={{ ...S.page, padding: isMobile ? "0 12px 48px" : "0 24px 72px" }}>
-      {/* ── HERO ── */}
-      <div style={{ ...S.hero, padding: isMobile ? "24px 20px" : "44px 40px 36px" }}>
-        <div style={S.heroOverlay1} />
-        <div style={S.heroOverlay2} />
-        <div style={S.heroContent}>
-          <div style={S.heroBadge}>
-            <i className="ti ti-military-rank" style={{ fontSize: 20 }} />
-          </div>
-          <div>
-            <p style={S.heroEyebrow}>National Cadet Corps — India</p>
-            <h1 style={{ ...S.heroTitle, fontSize: isMobile ? 24 : 30 }}>About NCC</h1>
-          </div>
-        </div>
-        <p style={S.heroDesc}>
-          The National Cadet Corps is India's premier tri-service youth organisation, operating under the Ministry of Defence since 1948. With over 13 lakh cadets across the country, NCC shapes disciplined, service-oriented leaders from school and college campuses nationwide.
-        </p>
-        <div style={S.heroPills}>
-          <Pill label="Est. 16 April 1948" icon="ti-calendar" />
-          <Pill label="Unity and Discipline" icon="ti-quote" />
-          <Pill label="13+ Lakh Cadets" icon="ti-users" />
-          <Pill label="Tri-Service Organisation" icon="ti-shield" />
-        </div>
-      </div>
+    <div className="page-layout">
+      {/* Integrated Sidebar */}
+      <Sidebar />
 
-      {/* ── QUICK NAV ── */}
-      <div style={{ ...S.navBar, overflowX: "auto", paddingBottom: isMobile ? 12 : 16 }}>
-        {navSections.map((s) => (
-          <button
-            key={s.id}
-            onClick={() => scrollTo(s.id)}
-            style={{
-              ...S.navBtn,
-              ...(activeSection === s.id ? S.navBtnActive : {}),
-            }}
-          >
-            <i className={`ti ${s.icon}`} style={{ fontSize: 13 }} />
-            {s.label}
-          </button>
-        ))}
-      </div>
+      <div className="main-content" style={{ padding: isMobile ? "0 12px 48px" : "0 24px 72px" }}>
+        
+        {/* Page Header Layout matching Admin Attendance */}
+        <div className="page-header" style={{ marginBottom: 16 }}>
+          <h1>About NCC</h1>
+          <p>National Cadet Corps — Unity and Discipline</p>
+        </div>
 
-      {/* ── WHAT IS NCC ── */}
-      <Section id="what" title="What is NCC?" icon="ti-info-circle">
-        <div style={{ ...S.twoCol, gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr" }}>
-          <div style={{ ...S.blockquote, padding: isMobile ? "16px 16px 16px 22px" : "22px 24px 22px 28px" }}>
-            <div style={S.blockquoteBar} />
+        {/* ── HERO ── */}
+        <div style={{ ...S.hero, padding: isMobile ? "24px 20px" : "44px 40px 36px" }}>
+          <div style={S.heroOverlay1} />
+          <div style={S.heroOverlay2} />
+          <div style={S.heroContent}>
+            <div style={S.heroBadge}>
+              <i className="ti ti-military-rank" style={{ fontSize: 20 }} />
+            </div>
             <div>
-              <p style={S.blockquoteText}>
-                The <strong>National Cadet Corps (NCC)</strong> is the youth wing of the Indian Armed Forces, open to all school and college students on a voluntary basis. Established on <strong>16 April 1948</strong> under the NCC Act, it is a tri-service organisation comprising the Army, Navy, and Air Force wings. The NCC is administered by the Ministry of Defence and operates through 17 Directorates spread across the country.
-              </p>
-              <p style={{ ...S.blockquoteText, marginTop: 12, marginBottom: 0 }}>
-                The corps does not aim to create professional soldiers but to develop qualities of character, discipline, leadership, and a sense of national service in young Indians — making it a cornerstone of India's youth development ecosystem.
-              </p>
+              <p style={S.heroEyebrow}>National Cadet Corps — India</p>
+              <h1 style={{ ...S.heroTitle, fontSize: isMobile ? 24 : 30 }}>Inside the Corps</h1>
             </div>
           </div>
-          <StatCard emoji="🏛️" label="Founded" value="16 April 1948" />
-          <StatCard emoji="📋" label="Under Ministry" value="Ministry of Defence" />
-          <StatCard emoji="🗺️" label="Directorates" value="17 Across India" />
-          <StatCard emoji="👥" label="Cadet Strength" value="13+ Lakh Cadets" />
-          <StatCard emoji="✈️" label="Organisation Type" value="Tri-Service (Army/Navy/Air)" />
-          <StatCard emoji="🌐" label="Headquartered" value="New Delhi" />
-        </div>
-
-        {/* Motto & Flag */}
-        <div style={{ ...S.twoColFixed, flexDirection: isMobile ? "column" : "row", marginTop: 16 }}>
-          <div style={{ ...S.mottoCard, padding: isMobile ? "20px" : "28px" }}>
-            <p style={S.mottoEyebrow}>NCC Motto</p>
-            <p style={S.mottoText}>"Unity and Discipline"</p>
-            <p style={S.mottoSub}>
-              Adopted officially in 1968, the motto captures the dual essence of the NCC mission — a united student body bound by the highest standards of discipline, reflecting the organisation's goal to make cadets pillars of a strong, indivisible nation.
-            </p>
-          </div>
-          <div style={{ ...S.flagCard, padding: isMobile ? "20px" : "24px" }}>
-            <p style={S.flagEyebrow}>NCC Flag — Tri-Colour Significance</p>
-            <div style={S.flagStripes}>
-              <FlagRow color="#c0392b" label="Red" wing="Army Wing" desc="Represents the Army, the oldest and largest wing of the NCC." />
-              <FlagRow color="#1a3a6b" label="Dark Blue" wing="Naval Wing" desc="Represents the Naval Wing, symbolising India's maritime strength." />
-              <FlagRow color="#4a90d9" label="Light Blue" wing="Air Force Wing" desc="Represents the Air Force Wing, denoting ambition and freedom." />
-            </div>
-            <p style={S.flagNote}>
-              The NCC crest — a lotus wreath in gold encircling the letters NCC — sits at the centre of the flag, symbolising the unity of purpose across all three wings.
-            </p>
-          </div>
-        </div>
-      </Section>
-
-      {/* ── HISTORY ── */}
-      <Section id="history" title="History of NCC" icon="ti-clock-history">
-        <div style={{ ...S.timeline, marginLeft: isMobile ? 15 : 40 }}>
-          {nccHistory.map((h, i) => (
-            <div key={i} style={{ ...S.timelineItem, gridTemplateColumns: isMobile ? "50px 16px 1fr" : "72px 16px 1fr", gap: isMobile ? 8 : 16 }}>
-              <div style={S.timelineYear}>{h.year}</div>
-              <div style={S.timelineDot} />
-              <div style={S.timelineText}>{h.event}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{ ...S.infoBox, marginTop: 16 }}>
-          <i className="ti ti-info-circle" style={{ color: "#2563eb", fontSize: 16, flexShrink: 0, marginTop: 2 }} />
-          <p style={S.infoBoxText}>
-            The NCC traces its origins to the University Corps established during British India. Post-independence, the Government of India enacted the NCC Act in 1948 to create a dedicated youth corps. Today it is the world's largest uniformed youth organisation and a primary feeder institution for India's defence services.
+          <p style={S.heroDesc}>
+            The National Cadet Corps is India's premier tri-service youth organisation, operating under the Ministry of Defence since 1948. With over 13 lakh cadets across the country, NCC shapes disciplined, service-oriented leaders from school and college campuses nationwide.
           </p>
-        </div>
-      </Section>
-
-      {/* ── AIMS ── */}
-      <Section id="aims" title="Aims of NCC" icon="ti-target">
-        <div style={S.aimsGrid}>
-          {aims.map((a, i) => (
-            <div key={i} style={S.aimCard}>
-              <div style={S.aimIconWrap}>
-                <span style={{ fontSize: 22 }}>{a.emoji}</span>
-              </div>
-              <div>
-                <p style={S.aimTitle}>{a.title}</p>
-                <p style={S.aimDesc}>{a.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* ── DIVISIONS ── */}
-      <Section id="divisions" title="NCC Divisions & Wings" icon="ti-layout-grid">
-        <div style={{ ...S.tableWrap, overflowX: "auto" }}>
-          <table style={S.table}>
-            <thead style={S.thead}>
-              <tr>
-                <Th>Division</Th>
-                <Th>Eligible For</Th>
-                <Th>Age Group</Th>
-                <Th>Wings</Th>
-              </tr>
-            </thead>
-            <tbody>
-              {divisions.map((d, i) => (
-                <tr key={i} style={{ background: i % 2 === 0 ? "#f8fafc" : "#ffffff" }}>
-                  <Td bold>{d.division}</Td>
-                  <Td>{d.who}</Td>
-                  <Td muted>{d.age}</Td>
-                  <Td>{d.wing}</Td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div style={{ ...S.twoColFixed, flexDirection: "column", marginTop: 16 }}>
-          <div style={S.wingCard}>
-            <span style={{ fontSize: 26, flexShrink: 0, marginTop: 2 }}>🪖</span>
-            <div>
-              <p style={S.wingTitle}>Army Wing</p>
-              <p style={S.wingDesc}>
-                The oldest and largest wing. Cadets undergo weapon training, field craft, map reading, and military-style drills. Army SD/SW cadets have direct opportunities at NDA, OTA, and CDS selections.
-              </p>
-            </div>
-          </div>
-          <div style={S.wingCard}>
-            <span style={{ fontSize: 26, flexShrink: 0, marginTop: 2 }}>⚓</span>
-            <div>
-              <p style={S.wingTitle}>Naval Wing</p>
-              <p style={S.wingDesc}>
-                Focuses on seamanship, navigation, sailing, and water sports. Naval Wing cadets participate in annual sea camps and can apply for direct entries into the Indian Navy through the NCC Special Entry.
-              </p>
-            </div>
-          </div>
-          <div style={S.wingCard}>
-            <span style={{ fontSize: 26, flexShrink: 0, marginTop: 2 }}>✈️</span>
-            <div>
-              <p style={S.wingTitle}>Air Force Wing</p>
-              <p style={S.wingDesc}>
-                Introduces cadets to aviation theory, gliding, and microlight flying. Air Wing cadets can qualify for flying scholarships and receive preference in Indian Air Force recruitment.
-              </p>
-            </div>
+          <div style={S.heroPills}>
+            <Pill label="Est. 16 April 1948" icon="ti-calendar" />
+            <Pill label="Unity and Discipline" icon="ti-quote" />
+            <Pill label="13+ Lakh Cadets" icon="ti-users" />
+            <Pill label="Tri-Service Organisation" icon="ti-shield" />
           </div>
         </div>
-      </Section>
 
-      {/* ── RANKS ── */}
-      <Section id="ranks" title="NCC Rank Structure" icon="ti-military-rank">
-        <div style={{ ...S.ranksGrid, gridTemplateColumns: isMobile ? "repeat(auto-fit, minmax(130px, 1fr))" : "repeat(auto-fit, minmax(160px, 1fr))" }}>
-          {rankStructure.map((r, i) => (
-            <div
-              key={i}
+        {/* ── QUICK NAV ── */}
+        <div style={{ ...S.navBar, overflowX: "auto", paddingBottom: isMobile ? 12 : 16 }}>
+          {navSections.map((s) => (
+            <button
+              key={s.id}
+              onClick={() => scrollTo(s.id)}
               style={{
-                ...S.rankCard,
-                borderTopColor: r.level === "Command" ? "#1e3a5f" : r.level === "Senior" ? "#2563eb" : r.level === "Junior" ? "#64748b" : "#94a3b8",
+                ...S.navBtn,
+                ...(activeSection === s.id ? S.navBtnActive : {}),
               }}
             >
-              <span
+              <i className={`ti ${s.icon}`} style={{ fontSize: 13 }} />
+              {s.label}
+            </button>
+          ))}
+        </div>
+
+        {/* ── WHAT IS NCC ── */}
+        <Section id="what" title="What is NCC?" icon="ti-info-circle">
+          <div style={{ ...S.twoCol, gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr" }}>
+            <div style={{ ...S.blockquote, padding: isMobile ? "16px 16px 16px 22px" : "22px 24px 22px 28px" }}>
+              <div style={S.blockquoteBar} />
+              <div>
+                <p style={S.blockquoteText}>
+                  The <strong>National Cadet Corps (NCC)</strong> is the youth wing of the Indian Armed Forces, open to all school and college students on a voluntary basis. Established on <strong>16 April 1948</strong> under the NCC Act, it is a tri-service organisation comprising the Army, Navy, and Air Force wings. The NCC is administered by the Ministry of Defence and operates through 17 Directorates spread across the country.
+                </p>
+                <p style={{ ...S.blockquoteText, marginTop: 12, marginBottom: 0 }}>
+                  The corps does not aim to create professional soldiers but to develop qualities of character, discipline, leadership, and a sense of national service in young Indians — making it a cornerstone of India's youth development ecosystem.
+                </p>
+              </div>
+            </div>
+            {/* Native Application Stats Layout Grid instead of basic wrappers */}
+            <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 12 }}>
+              <StatCard emoji="🏛️" label="Founded" value="16 April 1948" />
+              <StatCard emoji="📋" label="Under Ministry" value="Ministry of Defence" />
+              <StatCard emoji="🗺️" label="Directorates" value="17 Across India" />
+              <StatCard emoji="👥" label="Cadet Strength" value="13+ Lakh Cadets" />
+              <StatCard emoji="✈️" label="Organisation Type" value="Tri-Service" />
+              <StatCard emoji="🌐" label="Headquartered" value="New Delhi" />
+            </div>
+          </div>
+
+          {/* Motto & Flag */}
+          <div style={{ ...S.twoColFixed, flexDirection: isMobile ? "column" : "row", marginTop: 16 }}>
+            <div style={{ ...S.mottoCard, padding: isMobile ? "20px" : "28px" }}>
+              <p style={S.mottoEyebrow}>NCC Motto</p>
+              <p style={S.mottoText}>"Unity and Discipline"</p>
+              <p style={S.mottoSub}>
+                Adopted officially in 1968, the motto captures the dual essence of the NCC mission — a united student body bound by the highest standards of discipline.
+              </p>
+            </div>
+            <div className="card" style={{ flex: 1, margin: 0, padding: isMobile ? "20px" : "24px" }}>
+              <p style={S.flagEyebrow}>NCC Flag — Tri-Colour Significance</p>
+              <div style={S.flagStripes}>
+                <FlagRow color="#c0392b" label="Red" wing="Army Wing" desc="Represents the Army, the oldest and largest wing of the NCC." />
+                <FlagRow color="#1a3a6b" label="Dark Blue" wing="Naval Wing" desc="Represents the Naval Wing, symbolising maritime strength." />
+                <FlagRow color="#4a90d9" label="Light Blue" wing="Air Force Wing" desc="Represents the Air Force Wing, denoting freedom." />
+              </div>
+            </div>
+          </div>
+        </Section>
+
+        {/* ── HISTORY ── */}
+        <Section id="history" title="History of NCC" icon="ti-clock-history">
+          <div style={{ ...S.timeline, marginLeft: isMobile ? 15 : 40 }}>
+            {nccHistory.map((h, i) => (
+              <div key={i} style={{ ...S.timelineItem, gridTemplateColumns: isMobile ? "50px 16px 1fr" : "72px 16px 1fr", gap: isMobile ? 8 : 16 }}>
+                <div style={S.timelineYear}>{h.year}</div>
+                <div style={S.timelineDot} />
+                <div style={S.timelineText}>{h.event}</div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* ── AIMS ── */}
+        <Section id="aims" title="Aims of NCC" icon="ti-target">
+          <div style={S.aimsGrid}>
+            {aims.map((a, i) => (
+              <div key={i} className="card" style={{ ...S.aimCard, margin: 0 }}>
+                <div style={S.aimIconWrap}>
+                  <span style={{ fontSize: 22 }}>{a.emoji}</span>
+                </div>
+                <div>
+                  <p style={S.aimTitle}>{a.title}</p>
+                  <p style={S.aimDesc}>{a.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* ── DIVISIONS ── */}
+        <Section id="divisions" title="NCC Divisions & Wings" icon="ti-layout-grid">
+          <div className="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <Th>Division</Th>
+                  <Th>Eligible For</Th>
+                  <Th>Age Group</Th>
+                  <Th>Wings</Th>
+                </tr>
+              </thead>
+              <tbody>
+                {divisions.map((d, i) => (
+                  <tr key={i}>
+                    <Td bold>{d.division}</Td>
+                    <Td>{d.who}</Td>
+                    <Td muted>{d.age}</Td>
+                    <Td>{d.wing}</Td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Section>
+
+        {/* ── RANKS ── */}
+        <Section id="ranks" title="NCC Rank Structure" icon="ti-military-rank">
+          <div style={{ ...S.ranksGrid, gridTemplateColumns: isMobile ? "repeat(auto-fit, minmax(130px, 1fr))" : "repeat(auto-fit, minmax(160px, 1fr))" }}>
+            {rankStructure.map((r, i) => (
+              <div
+                key={i}
+                className="card"
                 style={{
-                  ...S.rankLevel,
-                  background: r.level === "Command" ? "#1e3a5f" : r.level === "Senior" ? "#dbeafe" : "#f1f5f9",
-                  color: r.level === "Command" ? "#fff" : r.level === "Senior" ? "#1d4ed8" : "#64748b",
+                  ...S.rankCard,
+                  margin: 0,
+                  borderTop: `3px solid ${r.level === "Command" ? "#1e3a5f" : r.level === "Senior" ? "var(--primary)" : "var(--gray)"}`,
                 }}
               >
-                {r.level}
-              </span>
-              <p style={S.rankAbbr}>{r.abbr}</p>
-              <p style={S.rankName}>{r.rank}</p>
-            </div>
-          ))}
-        </div>
-        <div style={{ ...S.infoBox, marginTop: 12 }}>
-          <i className="ti ti-info-circle" style={{ color: "#2563eb", fontSize: 16, flexShrink: 0, marginTop: 2 }} />
-          <p style={S.infoBoxText}>
-            Ranks in NCC are held within the corps only and are not equivalent to regular military ranks. The highest rank a cadet can hold is Senior Under Officer (SUO), typically awarded to the most outstanding cadet in the unit.
-          </p>
-        </div>
-      </Section>
+                <span
+                  style={{
+                    ...S.rankLevel,
+                    background: r.level === "Command" ? "#1e3a5f" : r.level === "Senior" ? "#dbeafe" : "#f1f5f9",
+                    color: r.level === "Command" ? "#fff" : r.level === "Senior" ? "#1d4ed8" : "var(--gray)",
+                  }}
+                >
+                  {r.level}
+                </span>
+                <p style={S.rankAbbr}>{r.abbr}</p>
+                <p style={S.rankName}>{r.rank}</p>
+              </div>
+            ))}
+          </div>
+        </Section>
 
-      {/* ── ACTIVITIES ── */}
-      <Section id="activities" title="NCC Activities" icon="ti-activity">
-        <div style={S.activitiesGrid}>
-          {activities.map((a, i) => (
-            <ActivityCard key={i} emoji={a.emoji} label={a.label} sub={a.sub} />
-          ))}
-        </div>
-        <div style={{ ...S.infoBox, marginTop: 16 }}>
-          <i className="ti ti-calendar-event" style={{ color: "#2563eb", fontSize: 16, flexShrink: 0, marginTop: 2 }} />
-          <p style={S.infoBoxText}>
-            <strong>Annual Training Camp (ATC)</strong> is mandatory for NCC cadets and is a prerequisite for certificate examinations. The 10-day camp covers weapon training, field exercises, cultural programmes, and leadership activities. Attendance at a minimum of one ATC is required for the 'B' Certificate.
-          </p>
-        </div>
-      </Section>
+        {/* ── ACTIVITIES ── */}
+        <Section id="activities" title="NCC Activities" icon="ti-activity">
+          <div style={S.activitiesGrid}>
+            {activities.map((a, i) => (
+              <ActivityCard key={i} emoji={a.emoji} label={a.label} sub={a.sub} />
+            ))}
+          </div>
+        </Section>
 
-      {/* ── CERTIFICATES ── */}
-      <Section id="certificates" title="NCC Certificates" icon="ti-certificate">
-        <div style={S.certGrid}>
-          {certificates.map((c, i) => (
-            <div key={i} style={{ ...S.certCard, borderColor: c.borderColor, background: c.bgColor }}>
-              <div style={{ ...S.certBar, background: c.accentColor }} />
-              <div style={S.certHeader}>
+        {/* ── CERTIFICATES ── */}
+        <Section id="certificates" title="NCC Certificates" icon="ti-certificate">
+          <div style={S.certGrid}>
+            {certificates.map((c, i) => (
+              <div key={i} className="card" style={{ ...S.certCard, margin: 0, borderColor: c.borderColor, background: c.bgColor }}>
+                <div style={{ ...S.certBar, background: c.accentColor }} />
+                <div style={S.certHeader}>
+                  <div>
+                    <p style={{ ...S.certName, color: c.textColor }}>{c.name}</p>
+                    <p style={{ ...S.certLevel, color: c.subColor }}>{c.level}</p>
+                  </div>
+                  <div style={{ ...S.certBadge, background: c.accentColor }}>
+                    <i className="ti ti-certificate" style={{ fontSize: 18, color: "#fff" }} />
+                  </div>
+                </div>
+                <div style={S.certSection}>
+                  <p style={S.certLabel}>Eligibility</p>
+                  <p style={S.certBodyText}>{c.eligibility}</p>
+                </div>
+                <div style={S.certSection}>
+                  <p style={S.certLabel}>Requirements</p>
+                  <ul style={S.certList}>
+                    {c.requirements.map((r, j) => (
+                      <li key={j} style={S.certListItem}>
+                        <i className="ti ti-check" style={{ color: c.accentColor, fontSize: 13, flexShrink: 0 }} />
+                        <span>{r}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div style={{ ...S.certBenefitBox, borderColor: c.borderColor }}>
+                  <p style={S.certLabel}>Career Benefit</p>
+                  <p style={{ ...S.certBodyText, color: c.textColor, fontWeight: 500 }}>{c.benefits}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* ── BENEFITS ── */}
+        <Section id="benefits" title="Benefits of Joining NCC" icon="ti-star">
+          <div style={S.benefitsGrid}>
+            {benefits.map((b, i) => (
+              <div key={i} className="card" style={{ ...S.benefitCard, margin: 0 }}>
+                <div style={S.benefitIconWrap}>
+                  <span style={{ fontSize: 20 }}>{b.emoji}</span>
+                </div>
                 <div>
-                  <p style={{ ...S.certName, color: c.textColor }}>{c.name}</p>
-                  <p style={{ ...S.certLevel, color: c.subColor }}>{c.level}</p>
-                </div>
-                <div style={{ ...S.certBadge, background: c.accentColor }}>
-                  <i className="ti ti-certificate" style={{ fontSize: 18, color: "#fff" }} />
+                  <p style={S.benefitTitle}>{b.title}</p>
+                  <p style={S.benefitDesc}>{b.desc}</p>
                 </div>
               </div>
-              <div style={S.certSection}>
-                <p style={S.certLabel}>Eligibility</p>
-                <p style={S.certBodyText}>{c.eligibility}</p>
-              </div>
-              <div style={S.certSection}>
-                <p style={S.certLabel}>Requirements</p>
-                <ul style={S.certList}>
-                  {c.requirements.map((r, j) => (
-                    <li key={j} style={S.certListItem}>
-                      <i className="ti ti-check" style={{ color: c.accentColor, fontSize: 13, flexShrink: 0 }} />
-                      <span>{r}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div style={{ ...S.certBenefitBox, borderColor: c.borderColor }}>
-                <p style={S.certLabel}>Career Benefit</p>
-                <p style={{ ...S.certBodyText, color: c.textColor, fontWeight: 500 }}>{c.benefits}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* ── BENEFITS ── */}
-      <Section id="benefits" title="Benefits of Joining NCC" icon="ti-star">
-        <div style={S.benefitsGrid}>
-          {benefits.map((b, i) => (
-            <div key={i} style={S.benefitCard}>
-              <div style={S.benefitIconWrap}>
-                <span style={{ fontSize: 20 }}>{b.emoji}</span>
-              </div>
-              <div>
-                <p style={S.benefitTitle}>{b.title}</p>
-                <p style={S.benefitDesc}>{b.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* ── NCC SONG ── */}
-      <Section id="song" title="NCC Song" icon="ti-music">
-        <div style={{ ...S.songCard, padding: isMobile ? "20px" : "28px 30px" }}>
-          <div style={S.songRight}>
-            <p style={S.songEyebrow}>NCC Song — Excerpt</p>
-            <p style={S.songLyrics}>
-              "Hum Sab Bharatiya Hain, Hum Sab Bharatiya Hain
-              <br />
-              Apni Manzil Ek Hai, Ha Ha Ha Ek Hai,
-              <br />
-              Ho Ho Ho Ek Hai, Hum Sab Bharatiya Hain..."
-            </p>
-            <p style={S.songDesc}>
-              The NCC Song was composed to embody the spirit of unity across all of India's diverse communities. Sung at every parade, camp, and national event, it reinforces the secular and inclusive ethos of the corps — that every cadet, regardless of religion, language, or region, is first and foremost Indian.
-            </p>
+            ))}
           </div>
-        </div>
-      </Section>
+        </Section>
 
-      {/* ── OUR UNIT ── */}
-      <Section id="unit" title="Our Unit — 38 GUJ BN NCC" icon="ti-flag-3">
-        <div style={S.unitGrid}>
-          {unitDetails.map((u, i) => (
-            <div key={i} style={S.unitCard}>
-              <div style={S.unitIconWrap}>
-                <span style={{ fontSize: 18 }}>{u.emoji}</span>
-              </div>
-              <div>
-                <p style={S.unitLabel}>{u.label}</p>
-                <p style={S.unitValue}>{u.value}</p>
-              </div>
+        {/* ── NCC SONG ── */}
+        <Section id="song" title="NCC Song" icon="ti-music">
+          <div style={{ ...S.songCard, padding: isMobile ? "20px" : "28px 30px" }}>
+            <div style={S.songRight}>
+              <p style={S.songEyebrow}>NCC Song — Excerpt</p>
+              <p style={S.songLyrics}>
+                "Hum Sab Bharatiya Hain, Hum Sab Bharatiya Hain
+                <br />
+                Apni Manzil Ek Hai, Ha Ha Ha Ek Hai,
+                <br />
+                Ho Ho Ho Ek Hai, Hum Sab Bharatiya Hain..."
+              </p>
+              <p style={S.songDesc}>
+                The NCC Song was composed to embody the spirit of unity across all of India's diverse communities. Sung at every parade, it reinforces that every cadet is first and foremost an Indian.
+              </p>
             </div>
-          ))}
-        </div>
-        <div style={{ ...S.infoBox, background: "#f0f7ff", border: "1.5px solid #bfdbfe", marginTop: 14 }}>
-          <span style={{ fontSize: 18, flexShrink: 0, marginTop: 2 }}>🏅</span>
-          <div>
-            <p style={{ ...S.infoBoxText, fontWeight: 600, color: "#1e40af", marginBottom: 6 }}>Unit Highlights</p>
-            <p style={S.infoBoxText}>
-              38 Gujarat Battalion NCC is one of the distinguished units under the Gujarat Directorate, with cadets regularly participating in state-level and national-level events. The unit has a proud record of producing Republic Day Camp participants, Thal Sainik Camp achievers, and cadets who have gone on to serve in the Indian Armed Forces.
-            </p>
           </div>
-        </div>
-      </Section>
+        </Section>
 
-      {/* ── ANO MESSAGE ── */}
-      <Section id="ano" title="Message from the ANO" icon="ti-message-quote">
-        <div style={{ ...S.anoCard, padding: isMobile ? "20px" : "30px 32px" }}>
-          <div style={S.anoBody}>
-            <p style={S.anoQuote}>
-              NCC is not merely a course or an activity — it is a transforming experience that shapes who you are as a person. Every parade you attend, every camp you endure, and every service project you lead contributes to building a version of yourself that is stronger, more disciplined, and more compassionate. I urge every cadet of 38 GUJ BN to embrace every opportunity that this corps offers, and to wear the uniform with pride.
-            </p>
-            <div style={S.anoFooter}>
-              <div style={S.anoAvatar}>ANO</div>
-              <div>
-                <p style={S.anoName}>Associate NCC Officer</p>
-                <p style={S.anoUnit}>38 GUJ BN NCC — BVM Engineering College, Gujarat</p>
+        {/* ── OUR UNIT ── */}
+        <Section id="unit" title="Our Unit — 38 GUJ BN NCC" icon="ti-flag-3">
+          <div style={S.unitGrid}>
+            {unitDetails.map((u, i) => (
+              <div key={i} className="card" style={{ ...S.unitCard, margin: 0 }}>
+                <div style={S.unitIconWrap}>
+                  <span style={{ fontSize: 18 }}>{u.emoji}</span>
+                </div>
+                <div>
+                  <p style={S.unitLabel}>{u.label}</p>
+                  <p style={S.unitValue}>{u.value}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* ── ANO MESSAGE ── */}
+        <Section id="ano" title="Message from the ANO" icon="ti-message-quote">
+          <div className="card" style={{ ...S.anoCard, margin: 0, padding: isMobile ? "20px" : "30px 32px" }}>
+            <div style={S.anoBody}>
+              <p style={S.anoQuote}>
+                NCC is not merely a course or an activity — it is a transforming experience that shapes who you are as a person. Every parade you attend, every camp you endure, and every service project you lead contributes to building a version of yourself that is stronger, more disciplined, and more compassionate.
+              </p>
+              <div style={S.anoFooter}>
+                <div style={S.anoAvatar}>ANO</div>
+                <div>
+                  <p style={S.anoName}>Associate NCC Officer</p>
+                  <p style={S.anoUnit}>38 GUJ BN NCC — BVM Engineering College, Gujarat</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </Section>
+        </Section>
+      </div>
     </div>
   );
 }
@@ -538,7 +497,7 @@ function Section({ id, title, icon, children }) {
   return (
     <section id={id} style={styles.section}>
       <div style={styles.sectionHeader}>
-        <i className={`ti ${icon}`} style={{ fontSize: 18, color: "#1e3a5f" }} aria-hidden />
+        <i className={`ti ${icon}`} style={{ fontSize: 18, color: "var(--primary)" }} aria-hidden />
         <h2 style={styles.sectionTitle}>{title}</h2>
       </div>
       <div style={styles.sectionDivider} />
@@ -558,13 +517,13 @@ function Pill({ label, icon }) {
 
 function StatCard({ emoji, label, value }) {
   return (
-    <div style={styles.statCard}>
+    <div className="stat-card" style={{ display: "flex", gap: 12, alignItems: "center", margin: 0, padding: "12px" }}>
       <div style={styles.statIconWrap}>
         <span style={{ fontSize: 18 }}>{emoji}</span>
       </div>
       <div>
         <p style={styles.statLabel}>{label}</p>
-        <p style={styles.statValue}>{value}</p>
+        <strong style={{ fontSize: 13, color: "var(--text-color)" }}>{value}</strong>
       </div>
     </div>
   );
@@ -591,23 +550,22 @@ function ActivityCard({ emoji, label, sub }) {
       onMouseLeave={() => setHovered(false)}
     >
       <span style={{ fontSize: 26, display: "block", marginBottom: 10 }}>{emoji}</span>
-      <p style={{ ...styles.actLabel, color: hovered ? "#fff" : "#1e293b" }}>{label}</p>
-      <p style={{ ...styles.actSub, color: hovered ? "rgba(255,255,255,0.7)" : "#94a3b8" }}>{sub}</p>
+      <p style={{ ...styles.actLabel, color: hovered ? "#fff" : "var(--text-color)" }}>{label}</p>
+      <p style={{ ...styles.actSub, color: hovered ? "rgba(255,255,255,0.7)" : "var(--gray)" }}>{sub}</p>
     </div>
   );
 }
 
 function Th({ children }) {
-  return <th style={styles.th}>{children}</th>;
+  return <th style={{ color: "#fff", textTransform: "uppercase", fontSize: 12, letterSpacing: "0.5px" }}>{children}</th>;
 }
 
 function Td({ children, bold, muted }) {
   return (
     <td
       style={{
-        ...styles.td,
         fontWeight: bold ? 600 : 400,
-        color: muted ? "#64748b" : bold ? "#1e293b" : "#475569",
+        color: muted ? "var(--gray)" : bold ? "var(--text-color)" : "inherit",
       }}
     >
       {children}
@@ -618,13 +576,6 @@ function Td({ children, bold, muted }) {
 /* ─── STYLES ─────────────────────────────────────────────────── */
 
 const styles = {
-  page: {
-    maxWidth: 940,
-    margin: "0 auto",
-    fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
-    color: "#1e293b",
-    lineHeight: 1.6,
-  },
   hero: {
     background: "#1a3052",
     borderRadius: 14,
@@ -641,61 +592,47 @@ const styles = {
   heroDesc: { color: "rgba(255,255,255,0.72)", fontSize: 15, lineHeight: 1.75, maxWidth: 640, margin: "0 0 22px" },
   heroPills: { display: "flex", gap: 10, flexWrap: "wrap" },
   pill: { background: "rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.9)", borderRadius: 20, padding: "5px 14px", fontSize: 12, fontWeight: 500, display: "inline-flex", alignItems: "center", gap: 6, border: "1px solid rgba(255,255,255,0.15)" },
-  navBar: { display: "flex", gap: 6, flexWrap: "nowrap", marginBottom: 32, borderBottom: "1px solid #e2e8f0" },
-  navBtn: { background: "transparent", color: "#64748b", border: "1px solid #e2e8f0", borderRadius: 8, padding: "6px 14px", fontSize: 12, fontWeight: 500, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, transition: "all 0.15s", whiteSpace: "nowrap" },
+  navBar: { display: "flex", gap: 6, flexWrap: "nowrap", marginBottom: 32, borderBottom: "1px solid var(--gray-mid)" },
+  navBtn: { background: "transparent", color: "var(--gray)", border: "1px solid var(--gray-mid)", borderRadius: 8, padding: "6px 14px", fontSize: 12, fontWeight: 500, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, transition: "all 0.15s", whiteSpace: "nowrap" },
   navBtnActive: { background: "#1a3052", color: "#fff", borderColor: "#1a3052" },
   section: { marginBottom: 52 },
   sectionHeader: { display: "flex", alignItems: "center", gap: 10, marginBottom: 10 },
-  sectionTitle: { fontSize: 20, fontWeight: 700, color: "#0f172a", margin: 0 },
-  sectionDivider: { height: 1, background: "#e2e8f0", marginBottom: 20 },
+  sectionTitle: { fontSize: 18, fontWeight: 700, color: "var(--text-color)", margin: 0 },
+  sectionDivider: { height: 1, background: "var(--gray-mid)", marginBottom: 20 },
   twoCol: { display: "grid", gap: 12 },
   twoColFixed: { display: "flex", gap: 14 },
-  blockquote: { background: "#f8fafc", borderRadius: 10, display: "flex", gap: 0, position: "relative", border: "1px solid #e2e8f0" },
+  blockquote: { background: "var(--gray-light)", borderRadius: 10, display: "flex", gap: 0, position: "relative", border: "1px solid var(--gray-mid)" },
   blockquoteBar: { position: "absolute", left: 0, top: 0, bottom: 0, width: 4, background: "#1a3052", borderRadius: "10px 0 0 10px" },
-  blockquoteText: { margin: 0, fontSize: 14, lineHeight: 1.85, color: "#334155" },
-  statCard: { background: "#fff", border: "1px solid #e2e8f0", borderRadius: 10, padding: "14px 18px", display: "flex", alignItems: "flex-start", gap: 12 },
-  statIconWrap: { width: 36, height: 36, borderRadius: 8, background: "#f1f5f9", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 },
-  statLabel: { fontSize: 11, color: "#94a3b8", fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.8, margin: "0 0 3px" },
-  statValue: { fontSize: 14, fontWeight: 600, color: "#1e293b", margin: 0 },
+  blockquoteText: { margin: 0, fontSize: 14, lineHeight: 1.85, color: "var(--text-light)" },
+  statIconWrap: { width: 36, height: 36, borderRadius: 8, background: "var(--gray-mid)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 },
+  statLabel: { fontSize: 10, color: "var(--gray)", fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.8, margin: "0 0 3px" },
   mottoCard: { background: "#1a3052", borderRadius: 12, display: "flex", flexDirection: "column", justifyContent: "center", flex: 1 },
   mottoEyebrow: { color: "rgba(255,255,255,0.5)", fontSize: 11, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: 1.5 },
   mottoText: { color: "#fff", fontSize: 22, fontWeight: 700, margin: "0 0 14px", fontStyle: "italic" },
   mottoSub: { color: "rgba(255,255,255,0.68)", fontSize: 13, lineHeight: 1.75, margin: 0 },
-  flagCard: { background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, flex: 1 },
-  flagEyebrow: { fontSize: 11, color: "#94a3b8", fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.8, margin: "0 0 14px" },
+  flagEyebrow: { fontSize: 11, color: "var(--gray)", fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.8, margin: "0 0 14px" },
   flagStripes: { display: "flex", flexDirection: "column", gap: 12 },
   flagRow: { display: "flex", alignItems: "flex-start", gap: 12 },
   flagSwatch: { width: 28, height: 20, borderRadius: 3, flexShrink: 0, marginTop: 2, border: "1px solid rgba(0,0,0,0.1)" },
-  flagWing: { fontSize: 13, margin: "0 0 2px", color: "#1e293b" },
-  flagDesc: { fontSize: 12, color: "#64748b", margin: 0, lineHeight: 1.5 },
-  flagNote: { fontSize: 12, color: "#94a3b8", marginTop: 14, marginBottom: 0, lineHeight: 1.6 },
-  timeline: { display: "flex", flexDirection: "column", borderLeft: "2px solid #e2e8f0", paddingLeft: 0 },
+  flagWing: { fontSize: 13, margin: "0 0 2px" },
+  flagDesc: { fontSize: 12, color: "var(--gray)", margin: 0, lineHeight: 1.5 },
+  timeline: { display: "flex", flexDirection: "column", borderLeft: "2px solid var(--gray-mid)", paddingLeft: 0 },
   timelineItem: { display: "grid", alignItems: "center", padding: "14px 0 14px 0px", position: "relative" },
   timelineYear: { fontSize: 13, fontWeight: 700, color: "#1a3052", whiteSpace: "nowrap", textAlign: "left" },
-  timelineDot: { width: 10, height: 10, borderRadius: "50%", background: "#1a3052", border: "2px solid #fff", boxShadow: "0 0 0 2px #e2e8f0", flexShrink: 0, position: "relative", left: -6 },
-  timelineText: { fontSize: 13, color: "#475569", lineHeight: 1.7 },
-  infoBox: { background: "#f0f9ff", border: "1px solid #bae6fd", borderRadius: 10, padding: "14px 18px", display: "flex", gap: 12, alignItems: "flex-start" },
-  infoBoxText: { fontSize: 13, color: "#334155", lineHeight: 1.7, margin: 0 },
+  timelineDot: { width: 10, height: 10, borderRadius: "50%", background: "#1a3052", border: "2px solid #fff", boxShadow: "0 0 0 2px var(--gray-mid)", flexShrink: 0, position: "relative", left: -6 },
+  timelineText: { fontSize: 13, color: "var(--text-light)", lineHeight: 1.7 },
   aimsGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 },
-  aimCard: { background: "#fff", border: "1px solid #e2e8f0", borderRadius: 10, padding: "18px 18px", display: "flex", gap: 14, alignItems: "flex-start", borderLeft: "3px solid #1a3052" },
-  aimIconWrap: { width: 44, height: 44, borderRadius: 10, background: "#f8fafc", border: "1px solid #e2e8f0", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 },
-  aimTitle: { fontSize: 14, fontWeight: 700, color: "#1e293b", margin: "0 0 5px" },
-  aimDesc: { fontSize: 13, color: "#64748b", margin: 0, lineHeight: 1.6 },
-  tableWrap: { borderRadius: 10, border: "1px solid #e2e8f0" },
-  table: { width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 400 },
-  thead: { background: "#1a3052" },
-  th: { background: "#1a3052", padding: "12px 14px", textAlign: "left", color: "#fff", fontWeight: 600, fontSize: 12, textTransform: "uppercase", letterSpacing: 0.5 },
-  td: { padding: "12px 14px", borderBottom: "1px solid #f1f5f9" },
-  wingCard: { background: "#fff", border: "1px solid #e2e8f0", borderRadius: 10, padding: "18px 18px", display: "flex", gap: 14, alignItems: "flex-start" },
-  wingTitle: { fontSize: 14, fontWeight: 700, color: "#1e293b", margin: "0 0 6px" },
-  wingDesc: { fontSize: 13, color: "#64748b", margin: 0, lineHeight: 1.65 },
+  aimCard: { display: "flex", gap: 14, alignItems: "flex-start", borderLeft: "3px solid #1a3052" },
+  aimIconWrap: { width: 44, height: 44, borderRadius: 10, background: "var(--gray-light)", border: "1px solid var(--gray-mid)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 },
+  aimTitle: { fontSize: 14, fontWeight: 700, margin: "0 0 5px" },
+  aimDesc: { fontSize: 13, color: "var(--gray)", margin: 0, lineHeight: 1.6 },
   ranksGrid: { display: "grid", gap: 10 },
-  rankCard: { background: "#fff", border: "1px solid #e2e8f0", borderTop: "3px solid #94a3b8", borderRadius: 8, padding: "14px 16px" },
+  rankCard: { borderRadius: 8, padding: "14px 16px" },
   rankLevel: { fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, borderRadius: 4, padding: "2px 8px", display: "inline-block", marginBottom: 8 },
-  rankAbbr: { fontSize: 18, fontWeight: 800, color: "#1e293b", margin: "0 0 4px", letterSpacing: 0.5 },
-  rankName: { fontSize: 12, color: "#475569", margin: 0, lineHeight: 1.4 },
+  rankAbbr: { fontSize: 18, fontWeight: 800, margin: "0 0 4px", letterSpacing: 0.5 },
+  rankName: { fontSize: 12, color: "var(--gray)", margin: 0, lineHeight: 1.4 },
   activitiesGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 10 },
-  actCard: { background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 10, padding: "18px 14px", textAlign: "center", cursor: "default", transition: "background 0.2s, border-color 0.2s" },
+  actCard: { background: "var(--gray-light)", border: "1px solid var(--gray-mid)", borderRadius: 10, padding: "18px 14px", textAlign: "center", cursor: "default", transition: "background 0.2s, border-color 0.2s" },
   actCardHover: { background: "#1a3052", borderColor: "#1a3052" },
   actLabel: { fontSize: 12, fontWeight: 600, margin: "0 0 4px", lineHeight: 1.4 },
   actSub: { fontSize: 11, margin: 0, lineHeight: 1.3 },
@@ -707,31 +644,31 @@ const styles = {
   certLevel: { fontSize: 12, fontWeight: 600, margin: "4px 0 0" },
   certBadge: { width: 38, height: 38, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" },
   certSection: { marginBottom: 14 },
-  certLabel: { fontSize: 10, color: "#94a3b8", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, margin: "0 0 6px" },
-  certBodyText: { fontSize: 13, color: "#475569", margin: 0, lineHeight: 1.65 },
+  certLabel: { fontSize: 10, color: "var(--gray)", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, margin: "0 0 6px" },
+  certBodyText: { fontSize: 13, margin: 0, lineHeight: 1.65 },
   certList: { listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 5 },
-  certListItem: { display: "flex", alignItems: "flex-start", gap: 8, fontSize: 13, color: "#475569", lineHeight: 1.5 },
+  certListItem: { display: "flex", alignItems: "flex-start", gap: 8, fontSize: 13, lineHeight: 1.5 },
   certBenefitBox: { background: "rgba(255,255,255,0.6)", border: "1px solid", borderRadius: 8, padding: "12px 14px" },
   benefitsGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 12 },
-  benefitCard: { background: "#fff", border: "1px solid #e2e8f0", borderRadius: 10, padding: "16px 18px", display: "flex", gap: 14, alignItems: "flex-start" },
-  benefitIconWrap: { width: 44, height: 44, borderRadius: 10, background: "#f8fafc", border: "1px solid #e2e8f0", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 },
-  benefitTitle: { fontSize: 14, fontWeight: 700, color: "#1e293b", margin: "0 0 5px" },
-  benefitDesc: { fontSize: 13, color: "#64748b", margin: 0, lineHeight: 1.6 },
+  benefitCard: { display: "flex", gap: 14, alignItems: "flex-start" },
+  benefitIconWrap: { width: 44, height: 44, borderRadius: 10, background: "var(--gray-light)", border: "1px solid var(--gray-mid)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 },
+  benefitTitle: { fontSize: 14, fontWeight: 700, margin: "0 0 5px" },
+  benefitDesc: { fontSize: 13, color: "var(--gray)", margin: 0, lineHeight: 1.6 },
   songCard: { background: "#1a3052", borderRadius: 12, display: "flex", gap: 24, alignItems: "flex-start" },
   songRight: { flex: 1 },
   songEyebrow: { color: "rgba(255,255,255,0.5)", fontSize: 11, margin: "0 0 12px", textTransform: "uppercase", letterSpacing: 1.5 },
   songLyrics: { color: "#fff", fontSize: 15, fontStyle: "italic", lineHeight: 1.9, margin: "0 0 16px", borderLeft: "3px solid rgba(255,255,255,0.25)", paddingLeft: 16 },
   songDesc: { color: "rgba(255,255,255,0.65)", fontSize: 13, lineHeight: 1.75, margin: 0 },
   unitGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 },
-  unitCard: { background: "#fff", border: "1px solid #e2e8f0", borderRadius: 10, padding: "14px 18px", display: "flex", alignItems: "center", gap: 12 },
-  unitIconWrap: { width: 36, height: 36, borderRadius: 8, background: "#f0f4f8", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 },
-  unitLabel: { fontSize: 11, color: "#94a3b8", fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.8, margin: "0 0 3px" },
-  unitValue: { fontSize: 14, fontWeight: 600, color: "#1e293b", margin: 0 },
-  anoCard: { background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, display: "flex", gap: 20, position: "relative", overflow: "hidden" },
+  unitCard: { display: "flex", alignItems: "center", gap: 12 },
+  unitIconWrap: { width: 36, height: 36, borderRadius: 8, background: "var(--gray-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 },
+  unitLabel: { fontSize: 11, color: "var(--gray)", fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.8, margin: "0 0 3px" },
+  unitValue: { fontSize: 14, fontWeight: 600, margin: 0 },
+  anoCard: { display: "flex", gap: 20, position: "relative", overflow: "hidden" },
   anoBody: { flex: 1 },
-  anoQuote: { fontSize: 15, color: "#334155", fontStyle: "italic", lineHeight: 1.85, margin: "0 0 24px", borderLeft: "3px solid #1a3052", paddingLeft: 18 },
+  anoQuote: { fontSize: 15, color: "var(--text-light)", fontStyle: "italic", lineHeight: 1.85, margin: "0 0 24px", borderLeft: "3px solid #1a3052", paddingLeft: 18 },
   anoFooter: { display: "flex", gap: 14, alignItems: "center", flexWrap: "wrap" },
   anoAvatar: { width: 48, height: 48, borderRadius: "50%", background: "#1a3052", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0, letterSpacing: 0.5 },
-  anoName: { fontSize: 14, fontWeight: 700, color: "#1e293b", margin: "0 0 3px" },
-  anoUnit: { fontSize: 12, color: "#64748b", margin: 0 },
+  anoName: { fontSize: 14, fontWeight: 700, margin: "0 0 3px" },
+  anoUnit: { fontSize: 12, color: "var(--gray)", margin: 0 },
 };
