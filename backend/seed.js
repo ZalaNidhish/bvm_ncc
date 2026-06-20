@@ -132,6 +132,13 @@ const adminConfigs = [
     rank: "CTO",
     wing: "Army",
     battalion: "38 GUJ BN",
+  },
+  {
+    regimentalNumber: "SYSTEMADMIN",
+    name: "Administrator",
+    rank: "",
+    wing: "Army",
+    battalion: "38 GUJ BN",
   }
 ];
 
